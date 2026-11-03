@@ -5,5 +5,10 @@ function openModal(type){const t=modalTemplates[type];content.innerHTML=`<p clas
 document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>openModal(b.dataset.modal)));
 document.querySelector("#modalClose").addEventListener("click",()=>modal.hidden=true);modal.addEventListener("click",e=>{if(e.target===modal)modal.hidden=true});
 document.querySelector("#themeToggle").addEventListener("click",()=>document.body.classList.toggle("dark"));
+let fontScale=Number(localStorage.getItem("hairlife-font-scale"))||1;
+function applyFontScale(){document.body.style.zoom=fontScale;document.querySelector("#fontDecrease").disabled=fontScale<=.9;document.querySelector("#fontIncrease").disabled=fontScale>=1.1}
+document.querySelector("#fontDecrease").addEventListener("click",()=>{fontScale=Math.max(.9,Number((fontScale-.1).toFixed(1)));localStorage.setItem("hairlife-font-scale",fontScale);applyFontScale()});
+document.querySelector("#fontIncrease").addEventListener("click",()=>{fontScale=Math.min(1.1,Number((fontScale+.1).toFixed(1)));localStorage.setItem("hairlife-font-scale",fontScale);applyFontScale()});
+applyFontScale();
 document.querySelector("#languageSelect").addEventListener("change",e=>{const set=translations[e.target.value];document.querySelectorAll("[data-i18n]").forEach(el=>{if(set[el.dataset.i18n])el.innerHTML=set[el.dataset.i18n]});document.documentElement.lang=e.target.value});
 document.querySelector("#chatbot").addEventListener("click",()=>{content.innerHTML="<p class='eyebrow'>HAIRLIFE CHAT</p><h2>How can we help?</h2><p>Our chatbot integration is ready for the next phase. For now, call us at <a href='tel:+15550199'>+1 555 0199</a> or send a message.</p>";modal.hidden=false});
