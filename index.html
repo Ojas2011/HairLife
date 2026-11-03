@@ -37,6 +37,15 @@
       </div>
     </header>
 
+    <aside class="tetris-panel" aria-label="HairLife Tetris game">
+      <div class="tetris-heading"><p class="eyebrow">HAIRLIFE ARCADE</p><h2>Tetris</h2></div>
+      <div class="tetris-stats"><span>Score <strong id="tetrisScore">0</strong></span><span>Best <strong id="tetrisBest">0</strong></span></div>
+      <div class="tetris-board" id="tetrisBoard" role="application" aria-label="Tetris board"></div>
+      <p class="tetris-status" id="tetrisStatus">Press Play to start</p>
+      <div class="tetris-buttons"><button class="button button-primary button-small" id="tetrisPlay">Play</button><button class="button button-outline button-small" id="tetrisPause" disabled>Pause</button><button class="button button-outline button-small" id="tetrisReplay">Replay</button></div>
+      <div class="tetris-controls" aria-label="Tetris keyboard controls">← → move · ↓ drop · ↑ rotate</div>
+    </aside>
+
     <main id="home">
       <section class="hero">
         <div class="hero-copy">
