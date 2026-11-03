@@ -5,6 +5,13 @@ function openModal(type){const t=modalTemplates[type];content.innerHTML=`<p clas
 document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>openModal(b.dataset.modal)));
 document.querySelectorAll(".owner-reply").forEach(b=>b.addEventListener("click",()=>{openModal("owner");document.querySelector("#ownerReplyForm").dataset.review=b.dataset.review}));
 document.addEventListener("submit",e=>{if(e.target.id==="ownerReplyForm"){e.preventDefault();const name=e.target.dataset.review;const card=[...document.querySelectorAll(".review-card")].find(c=>c.querySelector("strong")?.textContent===name);if(card){const response=document.createElement("div");response.className="owner-response";response.innerHTML=`<b>HairLife replied</b><span>${e.target.querySelector("textarea").value}</span>`;card.append(response)}modal.hidden=true}});
+document.querySelectorAll(".review-card").forEach(card=>{
+  card.querySelector(".edit-review").addEventListener("click",()=>{const text=card.querySelector("p").textContent.replace(/^“|”$/g,"");content.innerHTML=`<p class="eyebrow">YOUR REVIEW</p><h2>Edit your review.</h2><form id="editReviewForm"><textarea required>${text}</textarea><button class="button button-primary">Save changes ↗</button></form>`;modal.hidden=false;document.querySelector("#editReviewForm").addEventListener("submit",e=>{e.preventDefault();card.querySelector("p").textContent=`“${e.target.querySelector("textarea").value}”`;modal.hidden=true})});
+  card.querySelector(".delete-review").addEventListener("click",()=>{if(confirm("Delete your review?"))card.remove()});
+  card.querySelector(".dislike-review").addEventListener("click",e=>{const count=e.currentTarget.querySelector(".dislike-count");count.textContent=Number(count.textContent)+1;e.currentTarget.disabled=true});
+  card.querySelector(".report-review").addEventListener("click",()=>{openModal("contact");content.querySelector("h2").textContent="Report this review.";content.querySelector("textarea").placeholder="Tell us why you are reporting this review.";});
+  card.querySelector(".delete-reply").addEventListener("click",e=>{if(confirm("Delete this owner reply?"))e.currentTarget.closest(".owner-response").remove()});
+});
 document.querySelector("#modalClose").addEventListener("click",()=>modal.hidden=true);modal.addEventListener("click",e=>{if(e.target===modal)modal.hidden=true});
 document.querySelector("#themeToggle").addEventListener("click",()=>document.body.classList.toggle("dark"));
 let fontScale=Number(localStorage.getItem("hairlife-font-scale"))||1;
